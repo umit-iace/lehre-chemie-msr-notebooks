@@ -3,7 +3,6 @@ matplotlib
 numpy
 scipy
 sympy
-slycot
 control
 jupyter-contrib-nbextensions
 ipympl
