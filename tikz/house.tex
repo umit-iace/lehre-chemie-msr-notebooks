@@ -1,0 +1,96 @@
+\tikzset{
+    person/.pic={
+        \draw[thick,fill=white] (-0.35*2,2) circle (0.15*2) coordinate (H);
+        \draw[thick] (H)++(-90:0.15*2) coordinate (N) to[out=-95,in=95]++ (0,-0.40*2) coordinate (P);
+        \draw[thick,line cap=round] (N)++(-95:0.03) to[out=-60,in=95]++ (0.10*2,-0.4*2) coordinate (RH);
+        \draw[thick,line cap=round] (N)++(-95:0.03) to[out=-120,in=90]++ (-0.08*2,-0.4*2);
+        \draw[thick] (P) to[out=-70,in=95] ($(H)+(0.08*2,-2)$);
+        \draw[thick] (P) to[out=-100,in=72] ($(H)+(-0.08*2,-2)$);
+    }
+}
+\tikzset{
+    sunflames/.style={
+        line width=1pt,
+        draw=orange!85,
+        fill=orange!85,
+        regular polygon,
+        regular polygon sides=3,
+        inner sep=0.075cm
+    },
+    sunbody/.style={
+        line width=2pt,
+        draw=orange!85,
+        fill=orange!85,
+        circle,
+        minimum size=0.65cm
+    }
+}
+
+\newcommand{\TwoCol}[3][A]{%
+  \begin{tikzpicture}
+    \begin{scope}
+      \node[inner sep=0.1pt,outer sep=0.1pt] (a) {\phantom{#1}};
+      \clip (a.south west) rectangle ($(a.north)-(0.5\pgflinewidth,0)$);
+      \node[inner sep=0.1pt,outer sep=0.1pt,text=#2]  {#1};
+    \end{scope}
+    \clip (a.south east) rectangle ($(a.north)-(0.5\pgflinewidth,0)$);
+      \node[inner sep=0.1pt,outer sep=0.1pt,text=#3]  {#1};
+  \end{tikzpicture}
+}
+
+\newcommand{\dQ}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{\dot{Q}}{\dot{Q}_{\mathrm{#1}}}}}
+
+\begin{tikzpicture}[auto, >=latex', circuit pid ISO14617, every info/.style={font=\tiny}]
+
+    \draw[-, thick] (0, 0) -- (0, 2) -- (0.5, 2) -- (0.5, 0.5) -- (9.5, 0.5) -- (9.5, 4.5) -- (0.5, 4.5) -- (0.5, 4) -- (0, 4) -- (0, 5) -- (10,5) -- (10, 0) -- cycle;
+    \fill[blue!50] (0.2, 2) -- (0.2, 4) -- (0.3, 4) -- (0.3, 2) -- cycle;
+
+    \draw[-, thick, fill=white] (9.0, 4.25) -- (9.75, 4.25) -- (9.75, 3.5) -- (9.0, 3.5) -- cycle;
+
+    \pic[magenta!85] at (3, 0.5) {person};
+    \pic[magenta!85] at (4.5, 0.5) {person};
+    \pic[magenta!85] at (7.25, 0.5) {person};
+    \node[cyan] at (8.5, 2.5) {$\vartheta_{\textrm{L}}$};
+    \node[cyan] at (8.5, 0.25) {$\vartheta_{\textrm{W}}$};
+
+    \node at (-2, 2.5) {$\vartheta_{\infty}$};
+
+    \draw (-2,5.0) node[sunbody] (TheSun) {};
+        \foreach \angle in { 0,45,...,359  }
+        {
+            \draw [rotate around={\angle:(TheSun.center)}]
+                ($(TheSun.center) + (0.5,0)$)
+                node[shape border rotate=\angle-90,sunflames] {};
+        }
+
+    \ifAddQ
+        \draw[->, orange!85] (-2, 4.05) -- node [above] {$\dQ[S]$} (1, 3);
+        \node at (8.25, 3.875) {$\TwoCol[${\dQ[V]}$]{blue}{red}$};
+        \node[magenta!85] at (5.25, 2.0) {$\dQ[P]$};
+
+        \draw[->, red] (9.5, 4.0) -- (8.5, 4.0);
+        \draw[->, blue] (9.5, 3.75) -- (8.5, 3.75);
+
+        \draw[<->] (5.5, 3.9) -- node [right, yshift=0.4ex] {$\alpha_{\textrm{L}\infty}$} (5.5, 5.4);
+        \draw[<->] (4.5, 3.9) -- node [left, yshift=2.5ex] {$\alpha_{\textrm{LW}}$} (4.5, 4.75);
+    \fi
+
+    \ifHVAC
+        \draw (13.75, 3.875) to [tank={withPiD={heating coil}{0}{0}, name=HE}] (12.75, 3.875) to [compressor={info=$F_1$}] (11.25, 3.875) to
+        [measurement point={name=RL}] ++(0,0) to [pidDamper={name=D1}] (9.75, 3.875);
+        \node [measurement device=central control room, atPiD={RL.center}{1}, measurePiD=T] {};
+        \node [measurement point={name=MRT}] at (5, 3)  {};
+        \node [measurement device={name=RT}, atPiD={MRT.center}{1}, measurePiD=T] {};
+        \draw (HE-heating coil.south) to ++(0, 0.25) to [pump={info=$P_1$}] ++(0, +1) |- ++(0.5, 0);
+        \draw (HE-heating coil.north) to ++(0, -0.5) to [valve={info=$V_1$}] ++(0, -1) |- ++(0.5, 0);
+        \ifHVACCtrl
+            \node [automatic operation={name=M1}, atPiD={D1.center}{1.5}]{M};
+            \node (rect) at ([yshift=5ex]M1.north) [draw, minimum width=2ex,minimum height=2ex] {};
+            \node [measurement device={central control room, name=CRT}, measurePiD=TC] at ([yshift=5ex]M1.north){};
+            \draw[dashed] (RT.north) |- (CRT.west);
+            \draw[dashed] (CRT.south) -- (M1.north);
+            \draw[->, red] (9.5, 4.0) -- (8.5, 4.0);
+            \draw[->, blue] (9.5, 3.75) -- (8.5, 3.75);
+        \fi
+    \fi
+\end{tikzpicture}

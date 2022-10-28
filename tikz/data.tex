@@ -1,0 +1,30 @@
+\documentclass[convert, border=2pt,outext=.png]{standalone}
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+\usepackage[europeanvoltages, europeancurrents, europeanresistors]{circuitikz}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows,arrows.meta}
+\usetikzlibrary{decorations.markings,decorations.pathreplacing,}
+\usetikzlibrary{calc,math}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shapes,shapes.symbols}
+\usetikzlibrary{circuits.pid.ISO14617}
+
+\newif\ifHVAC
+\newif\ifHVACCtrl
+\newif\ifAddQ
+
+\begin{document}
+    % Raumklimatisierung
+    \HVACtrue
+    \HVACCtrltrue
+    \AddQtrue
+	\input{house.tex}
+    % Pendel
+%	\input{pendulum.tex}
+\end{document}
