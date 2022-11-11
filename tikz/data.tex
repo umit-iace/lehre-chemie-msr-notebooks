@@ -4,6 +4,8 @@
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 
+\usepackage{bm}
+
 \usepackage[europeanvoltages, europeancurrents, europeanresistors]{circuitikz}
 
 \usepackage{tikz}
@@ -15,6 +17,24 @@
 \usetikzlibrary{shapes,shapes.symbols}
 \usetikzlibrary{circuits.pid.ISO14617}
 
+\tikzstyle{block} = [draw, fill=white, rectangle, minimum height=3em, minimum width=4em]
+\tikzstyle{rblock} = [draw, fill=white, circle, inner sep=0pt,minimum size=1mm]
+\tikzstyle{wobblock} = [fill=white, rectangle, minimum height=3em, minimum width=5em]
+\tikzstyle{nlblock} = [draw, postaction={draw,line width=0.25mm,white}, line width=0.5mm, black, fill=white, rectangle, minimum height=3em, minimum width=5em]
+\tikzstyle{sum} = [draw,circle]
+\tikzstyle{branch} = [circle,inner sep=0pt,minimum size=1mm,fill=black,draw=black]
+\tikzstyle{nvbranch} = [circle,inner sep=0pt,minimum size=1mm,fill=white,draw=white, fill opacity=0, draw opacity=0]
+\tikzstyle{vecBranch} = [circle,inner sep=0pt,minimum size=2mm,fill=black,draw=black]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{coord} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={<-,thin,black,>=latex'}]
+
+\newcommand{\uS}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{u_{\mathrm{S}}}{u_{\mathrm{S,#1}}}}}
+\newcommand{\uR}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{u_{\mathrm{R}}}{u_{\mathrm{R,#1}}}}}
+\newcommand{\bmw}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{\bm{w}}{\bm{w}_{\mathrm{#1}}}}}
+\newcommand{\bmd}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{\bm{d}}{\bm{d}_{\mathrm{#1}}}}}
+
 \newif\ifHVAC
 \newif\ifHVACCtrl
 \newif\ifAddQ
@@ -24,7 +44,11 @@
     \HVACtrue
     \HVACCtrltrue
     \AddQtrue
-	\input{house.tex}
+%	\input{house.tex}
     % Pendel
 %	\input{pendulum.tex}
+    % Steuerung
+	\input{feedForwardGenerator.tex}
+    % Regelung
+%	\input{feedBackGenerator.tex}
 \end{document}

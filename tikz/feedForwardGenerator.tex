@@ -1,0 +1,13 @@
+\begin{tikzpicture}[auto, >=latex']
+
+    \node [block, minimum width=6em, fill=yellow!20] (sollgroesse) {\begin{tabular}{c}Sollgrößen-\\generator\end{tabular}};
+    \node [block, minimum width=6em, fill=green!20, node distance=1.5cm, right=of sollgroesse] (steuerung) {Steuerung};
+    \node [block, minimum width=6em, fill=blue!20, node distance=1.5cm, right=of steuerung,
+    pin={[pin distance=6ex, pinstyle]above:\begin{tabular}{c}Störungen\\$\bmd$\end{tabular}}] (regelstrecke) {Strecke};
+	\node [output, node distance=1cm, right= of regelstrecke] (x) {};
+
+    \draw [->] (sollgroesse) -- node [above, pin={[pin edge={-, thin, black}]90:Sollgrößen}] {$\bmw$} (steuerung);
+    \draw [->] (steuerung) -- node [above, pin={[pin edge={-, thin, black}]90:Stellgröße}] {$u$} (regelstrecke);
+    \draw [->] (regelstrecke) -- node [above, pin={[pin edge={-, thin, black}]90:Regelgröße}] {$y$} (x);
+
+\end{tikzpicture}

@@ -1,0 +1,29 @@
+\begin{tikzpicture}[auto, >=latex']
+
+	\node [block, minimum width=6em, fill=yellow!20] (sollgroesse)
+	{\begin{tabular}{c}Sollgrößen-\\generator\end{tabular}};
+	\node [branch, node distance=1.5cm, right=of sollgroesse] (brFF) {};
+	\node [sum, node distance=1cm, right=of brFF] (sumerror) {};
+	\node [block, minimum width=6em, fill=red!20, node distance=1.5cm, right=of sumerror] (regler) {Regler};
+	\node [block, minimum width=6em, fill=green!20, node distance=1.5cm, above=of regler] (steuerung) {Steuerung};
+    \node [sum, node distance=1cm, right=of regler] (sumFF) {};
+	\node [block, minimum width=6em, fill=blue!20, node distance=1.75cm, right=of sumFF, pin={[pin distance=6ex, pinstyle]above:\begin{tabular}{c}Störungen\\$\bmd$\end{tabular}}] (regelstrecke)
+		{Strecke};
+	\node [branch, node distance=1cm, right=of regelstrecke] (bx) {};
+	\node [output, node distance=1cm, right= of bx] (x) {};
+	\node [coord, node distance=1.5cm, below=of regler] (rueckfuehrung) {};
+
+	\draw [->] (sollgroesse) -- node [above, pin={[pin edge={-, thin, black}]90:Sollgröße}] {$\bmw\vphantom{_{\mathrm{R}}}$} (brFF) -- (sumerror);
+    \draw [->] (sumerror) -- node [above, pin={[pin distance=3.5ex, pin edge={-, thin, black}]90:Fehler}] {$e\vphantom{_{\mathrm{R}}}$}
+	(regler);
+    \draw [->] (regler) -- node [above] {$\uR$} (sumFF);
+    \draw [->] (sumFF) -- node [above, pin={[pin edge={-, thin, black}]90:Stellgröße}]
+	{$u\vphantom{_{\mathrm{R}}}$} (regelstrecke);
+	\draw [-] (regelstrecke) -- (bx) node [above, pin={[pin edge={-, thin, black}]90:Regelgröße}] {$y\vphantom{_{\mathrm{R}}}$};
+	\draw [->] (bx) -- (x);
+	\draw [-] (bx) |- (rueckfuehrung);
+	\draw [->] (rueckfuehrung) -| node[right, yshift=1.7cm] {$-$} (sumerror);
+    \draw [->] (brFF) |- (steuerung);
+	\draw [->] (steuerung) node [above, xshift=9.75ex] {$\uS$} -| (sumFF);
+
+\end{tikzpicture}
