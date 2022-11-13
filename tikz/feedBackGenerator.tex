@@ -13,7 +13,8 @@
 	\node [output, node distance=1cm, right= of bx] (x) {};
 	\node [coord, node distance=1.5cm, below=of regler] (rueckfuehrung) {};
 
-	\draw [->] (sollgroesse) -- node [above, pin={[pin edge={-, thin, black}]90:Sollgröße}] {$\bmw\vphantom{_{\mathrm{R}}}$} (brFF) -- (sumerror);
+	\draw [-] (sollgroesse) -- node [above, pin={[pin edge={-, thin, black}]90:Sollgröße}] {$\bmw\vphantom{_{\mathrm{R}}}$} (brFF);
+    \draw [->] (brFF) -- (sumerror);
     \draw [->] (sumerror) -- node [above, pin={[pin distance=3.5ex, pin edge={-, thin, black}]90:Fehler}] {$e\vphantom{_{\mathrm{R}}}$}
 	(regler);
     \draw [->] (regler) -- node [above] {$\uR$} (sumFF);
