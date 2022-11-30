@@ -11,7 +11,7 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 \usetikzlibrary{arrows,arrows.meta}
-\usetikzlibrary{decorations.markings,decorations.pathreplacing,}
+\usetikzlibrary{decorations,decorations.markings,decorations.pathreplacing,decorations.pathmorphing}
 \usetikzlibrary{calc,math}
 \usetikzlibrary{patterns}
 \usetikzlibrary{shapes,shapes.symbols}
@@ -35,6 +35,27 @@
 \newcommand{\bmw}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{\bm{w}}{\bm{w}_{\mathrm{#1}}}}}
 \newcommand{\bmd}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{\bm{d}}{\bm{d}_{\mathrm{#1}}}}}
 
+\newcommand{\Ain}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{A_{\mathrm{zu}}}{A_{\mathrm{zu, #1}}}}}
+\newcommand{\Aout}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{A_{\mathrm{ab}}}{A_{\mathrm{ab, #1}}}}}
+\newcommand{\uA}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{u_{\mathrm{A}}}{u_{\mathrm{A, #1}}}}}
+\newcommand{\buA}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{\bar{u}_{\mathrm{A}}}{\bar{u}_{\mathrm{A, #1}}}}}
+\newcommand{\AT}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{A_{\mathrm{T}}}{A_{\mathrm{T, #1}}}}}
+\newcommand{\hv}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{h_{\mathrm{V}}}{h_{\mathrm{V, #1}}}}}
+\newcommand{\hvb}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{\bar{h}_{\mathrm{V}}}{\bar{h}_{\mathrm{V, #1}}}}}
+\newcommand{\Vd}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{\dot{V}_{}}{\dot{V}_{#1}}}}
+\newcommand{\Vdin}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{\dot{V}_{\mathrm{zu}}}{\dot{V}_{\mathrm{zu, #1}}}}}
+\newcommand{\Vdout}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{\dot{V}_{\mathrm{ab}}}{\dot{V}_{\mathrm{ab, #1}}}}}
+\newcommand{\ub}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{\bar{u}}{\bar{u}}}}
+\newcommand{\Ku}{\ensuremath{K_{\mathrm{U}}}}
+\newcommand{\dz}{\ensuremath{\dot{z}}}
+\newcommand{\tdz}{\ensuremath{\dot{\tilde{z}}}}
+\newcommand{\Vpos}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{V_{\mathrm{pos}}}{V_{\mathrm{pos, #1}}}}}
+\newcommand{\dVT}{\ensuremath{\dot{V}_{\mathrm{T}}}}
+\newcommand{\Fw}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{F_{\mathrm{w}}}{F_{\mathrm{w, #1}}}}}
+\newcommand{\Fg}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{F_{\mathrm{g}}}{F_{\mathrm{g, #1}}}}}
+\newcommand{\aus}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{a_{\mathrm{US}}}{a_{\mathrm{US, #1}}}}}
+\newcommand{\bus}[1][non]{\ensuremath{\ifthenelse{\equal{#1}{non}}{b_{\mathrm{US}}}{b_{\mathrm{US, #1}}}}}
+
 \newif\ifHVAC
 \newif\ifHVACCtrl
 \newif\ifAddQ
@@ -51,4 +72,6 @@
 %	\input{feedForwardGenerator.tex}
     % Regelung
 %	\input{feedBackGenerator.tex}
+    % Zweitanksystem
+%	\input{zweitank.tex}
 \end{document}
