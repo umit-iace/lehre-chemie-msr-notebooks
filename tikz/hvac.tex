@@ -1,0 +1,83 @@
+\tikzset{
+    Heat/.style={
+         draw=none,
+         inner color=red,
+         outer color=yellow,
+            postaction={
+                decorate,
+                rounded corners=2pt,
+                decoration={
+                    markings,
+                    mark=between positions 6pt and 55pt step 9pt
+                    with {
+                        \draw[-Triangle,red,line width=0.5pt](0,0)
+                            --++(0.1,0.1)
+                            --++(-0.2,0.1)
+                            --++(0.1,0.1)
+                            --++(0,0.2);
+                    }
+                }
+            }
+    },
+    Cool/.style={
+         draw=none,
+            postaction={
+                decorate,
+                rounded corners=2pt,
+                decoration={
+                    markings,
+                    mark=between positions 6pt and 55pt step 9pt
+                    with {
+                        \draw[-Triangle,blue,line width=0.5pt](0,0)
+                            --++(0.1,0.1)
+                            --++(-0.2,0.1)
+                            --++(0.1,0.1)
+                            --++(0,0.2);
+                    }
+                }
+            }
+      },
+    CoolHeat/.style={
+         draw=none,
+            postaction={
+                decorate,
+                rounded corners=2pt,
+                decoration={
+                    markings,
+                    mark=between positions 6pt and 55pt step 9pt
+                    with {
+                        \draw[-Triangle,blue!50!red,line width=0.5pt](0,0)
+                            --++(0.1,0.1)
+                            --++(-0.2,0.1)
+                            --++(0.1,0.1)
+                            --++(0,0.2);
+                    }
+                }
+            }
+      },
+}
+
+\begin{tikzpicture}[auto, >=latex', circuit pid ISO14617, every info/.style={font=\tiny}]
+
+    \draw [thick] (0, -0.1) -- (6, -0.1);
+    \draw [thick] (0, 1.775) -- (6, 1.775);
+    \node [fan, circuit symbol unit=21pt] at (4, 0.8375) () {};
+
+    \draw [Heat, rotate=-90] (-1.375, 2) -- ++(0,4pt) -- ++(30pt,0) -- ++(0,-4pt);
+    \draw [Cool, rotate=-90] (-1.7, 0) -- ++(0,4pt) -- ++(50pt,0) -- ++(0,-4pt);
+    \draw [CoolHeat, rotate=-90] (-1.7, 5.25) -- ++(0,4pt) -- ++(50pt,0) -- ++(0,-4pt);
+
+    \draw[thick] (3.6, 0.01) -- (3.6, -0.4);
+    \draw[thick] (4.4, 0.01) -- (4.4, -0.4);
+    \draw[thick] (4.4, -0.5) circle (0.1);
+    \draw[thick] (3.6, -0.5) circle (0.1);
+    \draw (4.4, -0.5) node [right] {$+$};
+    \draw (3.6, -0.5) node [left] {$-$};
+
+    \draw[thick] (1.2, -0.4) -- (1.2, 0.9) -- (1.6, 0.9) -- (1.8, 1.2) -- (2, 1.4);
+    \draw[thick] (1.5, -0.4) -- (1.5, 0.8) -- (1.6, 0.8) -- (1.8, 0.5) -- (2, 0.3);
+    \draw[thick] (1.5, -0.5) circle (0.1);
+    \draw[thick] (1.2, -0.5) circle (0.1);
+    \draw (1.5, -0.5) node [right] {$+$};
+    \draw (1.2, -0.5) node [left] {$-$};
+\end{tikzpicture}
