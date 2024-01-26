@@ -1,0 +1,29 @@
+\begin{tikzpicture}[auto, >=latex']
+	\node [block, minimum width=6em, fill=yellow!20] (sollgroesse)
+	{\begin{tabular}{c}Sollgrößen-\\generator\end{tabular}};
+	\node [sum, node distance=1cm, right=of sollgroesse] (sumerror) {};
+	\node [block, minimum width=5em, node distance=1cm, fill=red!20, right=of sumerror] (regler) {$R(s)$};
+	\node [branch, node distance=1.75cm, right=of regler] (bR) {};
+    \node [block, minimum width=5em, node distance=2.75cm, fill=blue!20, right=of bR] (process) {$P(s)e^{-s T_\mathrm{t}}$};
+	\node [branch, node distance=2.75cm, right=of process] (bP) {};
+    \node [output, node distance=1cm, right= of bP] (x) {};
+
+	\node [sum, node distance=1.25cm, below=of bP] (sumDelay) {};
+    \node [block, minimum width=5em, node distance=0.75cm, fill=red!20, left=of sumDelay] (delay) {$e^{-s \hat{T}_\mathrm{t}}$};
+	\node [branch, node distance=0.75cm, left=of delay] (bD) {};
+    \node [block, minimum width=5em, node distance=0.75cm, fill=red!20, left=of bD] (g) {$\hat{P}(s)$};
+	\node [sum, node distance=1.25cm, below=of bD] (sumSmith) {};
+
+    \draw [->] (sollgroesse) -- node [above] {$W(s)$} (sumerror);
+    \draw [->] (sumerror) -- node [above] {$E(s)$} (regler);
+    \draw [->] (regler) -- (bR) node [above] {$U(s)$} -- (process);
+    \draw [->] (process) -- (bP) node [above] {$Y(s)$} -- (x);
+    \draw [->] (bR) |- (g);
+    \draw [->] (g) -- (bD) node [above] {$\hat{Y}(s) e^{s \hat{T}_\mathrm{t}} $} -- (delay);
+    \draw [->] (bD) -- (sumSmith);
+    \draw [->] (sumSmith) -| (sumerror) node [below right] {$-$};
+    \draw [->] (bP) -- (sumDelay);
+    \draw [->] (delay) -- node [below, xshift=1ex] {$-$} node [above, xshift=0.5ex] {$\hat{Y}(s)$} (sumDelay);
+    \draw [->] (sumDelay) |- (sumSmith);
+
+\end{tikzpicture}
