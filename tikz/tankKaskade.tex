@@ -1,0 +1,33 @@
+\begin{tikzpicture}[auto, >=latex']
+	\node [block, minimum width=6em, fill=yellow!20] (sollgroesse)
+	{\begin{tabular}{c}Sollgrößen-\\generator\end{tabular}};
+	\node [sum, node distance=1cm, right=of sollgroesse] (sumerror) {};
+	\node [block, minimum width=4em, fill=red!20, right=of sumerror] (cont1)
+		{$R_2(s)$};
+	\node [coord, node distance=2cm, below of= cont1] (rueckfuehrung) {};
+	\node [block, minimum width=4em, node distance=6em, fill=red!20, right=of cont1] (cont2)
+		{$R_1(s)$};
+	\node [block, minimum width=4em, right=of cont2,fill=blue!20] (sysDyn)
+    {\begin{tabular}{c} Tank 1\\$P_1(s)$\end{tabular}};
+	\node [sum, node distance=2.5em, right=of cont1] (sumH) {};
+	\node [block, minimum width=4em, node distance=3em, right=of sysDyn, fill=blue!20]
+			(sysDyn2) {\begin{tabular}{c} Tank 2\\$P_2(s)$\end{tabular}};
+	\node [branch, node distance=1cm, right=of sysDyn2] (bx) {};
+	\node [output, node distance=1cm, right= of bx] (x) {};
+	\node [output, node distance=1.51cm, below= of x] (xH) {};
+	\node [branch, node distance=1.25em, right=of sysDyn] (byH) {};
+	\node [branch, node distance=1.4cm, below=of byH] (byEH) {};
+
+    \draw [-] (sollgroesse) -- node [above,xshift=0.5ex] {$\tilde{Z}_{2,\mathrm{r}}(s)$} (sumerror);
+	\draw [->] (sumerror) -- node [above] {$E(s)$} (cont1);
+    \draw [->] (cont2) -- node [above] {$\tilde{U}_{\mathrm{A}}(s)$} (sysDyn);
+	\draw [-] (sysDyn2) -- (bx);
+    \draw [->] (bx) -- (x) node [above] {$\tilde{Z}_2(s)$};
+	\draw [->] (bx) |-  (rueckfuehrung) -| (sumerror) node[below right] {$-$};
+	\draw [->] (sysDyn) -- (sysDyn2);
+    \draw [->] (byEH) -- (xH) node [above] {$\tilde{Z}_1(s)$};
+    \draw [-] (byH) -- (byEH);
+    \draw [->] (cont1) -- node[above, xshift=.25em] {$\tilde{Z}_\mathrm{1,r}(s)$} (sumH);
+	\draw [->] (sumH) -- node[above] {$E_\mathrm{H}(s)$} (cont2);
+	\draw [->] (byEH) -| (sumH) node[below right] {$-$};
+\end{tikzpicture}
