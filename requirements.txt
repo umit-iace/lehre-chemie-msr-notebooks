@@ -1,9 +1,0 @@
-jupyter
-matplotlib
-numpy
-scipy
-pandas
-sympy
-control
-jupyter-contrib-nbextensions
-ipympl

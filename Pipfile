@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+jupyter = "*"
+matplotlib = "*"
+numpy = "*"
+scipy = "*"
+pandas = "*"
+sympy = "*"
+slycot = "*"
+control = "*"
+jupyter-contrib-nbextensions = "*"
+ipympl = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3"
