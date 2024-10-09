@@ -14,6 +14,7 @@ slycot = "*"
 control = "*"
 jupyter-contrib-nbextensions = "*"
 ipympl = "*"
+nbstripout = "*"
 
 [dev-packages]
 
