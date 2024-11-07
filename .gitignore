@@ -261,3 +261,6 @@ build-uno/
 tex/tikz/.latexmkrc
 tex/tikz/data.png
 tex/tikz/data.tex
+
+# Pipenv lock file
+Pipfile.lock
