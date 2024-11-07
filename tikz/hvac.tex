@@ -55,13 +55,25 @@
                 }
             }
       },
+    Fan/.style={
+        circle,
+        draw,
+        minimum size=1cm,
+        path picture={
+            \draw [black] (path picture bounding box.130) --
+                    (path picture bounding box.15);
+            \draw [black] (path picture bounding box.230) --
+                    (path picture bounding box.345);
+        },
+        node contents={}
+    }
 }
 
-\begin{tikzpicture}[auto, >=latex', circuit pid ISO14617, every info/.style={font=\tiny}]
+\begin{tikzpicture}[auto, >=latex', every info/.style={font=\tiny}]
 
     \draw [thick] (0, -0.1) -- (6, -0.1);
     \draw [thick] (0, 1.775) -- (6, 1.775);
-    \node [fan, circuit symbol unit=21pt] at (4, 0.8375) () {};
+    \draw (4, 0.8375) node [Fan, minimum size=1.85cm] ;
 
     \draw [Heat, rotate=-90] (-1.375, 2) -- ++(0,4pt) -- ++(30pt,0) -- ++(0,-4pt);
     \draw [Cool, rotate=-90] (-1.7, 0) -- ++(0,4pt) -- ++(50pt,0) -- ++(0,-4pt);
