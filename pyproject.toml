@@ -15,6 +15,5 @@ dependencies = [
     "numpy>=2.2.6",
     "pandas>=2.2.3",
     "scipy>=1.15.3",
-    "slycot>=0.6.0",
     "sympy>=1.14.0",
 ]
