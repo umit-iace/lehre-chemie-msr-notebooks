@@ -268,3 +268,7 @@ Pipfile.lock
 
 # uv
 uv.lock
+
+# tup
+.tup/
+

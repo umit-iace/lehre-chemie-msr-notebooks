@@ -1,8 +1,9 @@
-\documentclass[convert, border=2pt,outext=.png]{standalone}
+\documentclass[tikz]{standalone}
 
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
+\usepackage{ifthen}
 
 \usepackage{bm}
 
@@ -15,6 +16,7 @@
 \usetikzlibrary{calc,math}
 \usetikzlibrary{patterns}
 \usetikzlibrary{shapes,shapes.symbols}
+\usetikzlibrary{circuits.pid.ISO14617}
 
 \tikzstyle{block} = [draw, fill=white, rectangle, minimum height=3em, minimum width=4em]
 \tikzstyle{rblock} = [draw, fill=white, circle, inner sep=0pt,minimum size=1mm]
@@ -60,23 +62,8 @@
 \newif\ifAddQ
 
 \begin{document}
-    % Raumklimatisierung
     \HVACtrue
     \HVACCtrltrue
     \AddQtrue
-%	\input{house.tex}
-    % Pendel
-%	\input{pendulum.tex}
-    % Steuerung
-%	\input{feedForwardGenerator.tex}
-    % Regelung
-%	\input{feedBackGenerator.tex}
-    % Zweitanksystem
-%	\input{zweitank.tex}
-    % HVAC
-%	\input{hvac.tex}
-    % Tankkaskade
-%	\input{tankKaskade.tex}
-    % Smith-Prädiktor
-%	\input{smith.tex}
+    \input{./../tikz/\jobname.tikz}
 \end{document}
